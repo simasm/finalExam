@@ -44,7 +44,7 @@ function App() {
         case "LOADING" :
           return {
             ...appState,
-            isLoading : !appState.isLoading
+            isLoading : action.value
           }
       default:
         return appState

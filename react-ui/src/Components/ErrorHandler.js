@@ -13,11 +13,12 @@ const ErrorHandler = ({ children }) => {
             console.log("res")
 
 
-            setAppState({ type: "LOADING" })
+            setAppState({ type: "LOADING" ,value : false})
             return response
 
         }, async (error) => {
             console.log("err")
+            setAppState({ type: "LOADING" ,value : false})
 
             const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;
             if (!expectedError) {
