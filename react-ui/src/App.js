@@ -17,7 +17,7 @@ import ErrorHandler from './Components/ErrorHandler'
 
 import AuthContext from './Components/AuthContext';
 import { useReducer } from 'react';
-import AdminPage from './Components/AdminPage';
+import AdminContainer from './Components/AdminContainer';
 import Authentication from './Components/Authentication';
 import { apiLogout } from './Components/Api'
 
@@ -84,7 +84,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route exact path="/admin" element={
                   <Authentication>
-                    <AdminPage />
+                    <AdminContainer />
                   </Authentication>
                 } />
 
