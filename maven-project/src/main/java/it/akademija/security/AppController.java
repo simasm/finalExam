@@ -1,6 +1,8 @@
 package it.akademija.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,19 +21,19 @@ import it.akademija.users.Users;
 		private UserRepo userRepo;
 		
 		@GetMapping("/api/loggedUser")
-		public String getLoggedUser() {
+		public ResponseEntity<String> getLoggedUser() {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			
 			if(!(authentication instanceof AnonymousAuthenticationToken)) {
 				String username = authentication.getName();
 				 Users user = userRepo.findByUserName(username);
-				return user.getUserName() + authentication.isAuthenticated();
+				return new ResponseEntity<String>  (user.getUserName() +"+"+ user.getRole().name(), HttpStatus.OK);
 			
 		
 			
 			}
 		
-			return "not logged in";
+			return new ResponseEntity<String>("unauthorized", HttpStatus.UNAUTHORIZED);
 			
 		
 		

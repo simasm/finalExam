@@ -1,13 +1,23 @@
-import { React } from 'react'
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { React, useContext } from 'react'
+import { Navbar, Nav, NavDropdown, Container, Button } from 'react-bootstrap'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import AuthContext from '../AuthContext'
+ import { apiLogout } from '../Api'
+const Bar =  () => {
 
-const Bar = () => {
+    const {appState,setAppState} = useContext(AuthContext)
+    const navigate = useNavigate()
+    const logoutHandler = async () => {
 
+        return apiLogout().then(response => {
+          setAppState({ type: "LOGOUT" })
+          navigate("/login", {replace : true})
+         })
+    }
 
     return (
         <div>
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark" className="me-5">
                 <Container>
                     <Navbar.Brand as={Link} to="/">Bar</Navbar.Brand>
                     <Nav className="me-auto">
@@ -22,7 +32,15 @@ const Bar = () => {
                             <NavDropdown.Item as={Link} to="/link2">Separated link</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link as={Link} to="/login">login</Nav.Link>
+
+                        <Nav.Link as={Link} to="/admin"
+                       className={appState.isAuthenticated ? "btn btn-secondary me-3" : ""} >admin</Nav.Link>
+
+                     
                     </Nav>
+                    <Nav >
+                        <Nav.Link as={Button} onClick={logoutHandler}>logout</Nav.Link>
+                        </Nav>
                 </Container>
             </Navbar>
         </div>

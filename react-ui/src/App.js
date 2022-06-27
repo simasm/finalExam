@@ -2,7 +2,9 @@ import Bar from './Components/Nav/Bar';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate,
+  useNavigate
 } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,15 +17,18 @@ import ErrorHandler from './Components/ErrorHandler'
 
 import AuthContext from './Components/AuthContext';
 import { useReducer } from 'react';
+import AdminPage from './Components/AdminPage';
+import Authentication from './Components/Authentication';
+import { apiLogout } from './Components/Api'
 
 function App() {
 
   var initState = {
-    isAuthenticated: null,
+    isAuthenticated: false,
     username: null,
     role: null,
-    isLoading: false
-  }
+    isLoading: false,
+   }
 
   const auth = (appState, action) => {
     switch (action.type) {
@@ -31,66 +36,78 @@ function App() {
         return {
           ...appState,
           isAuthenticated: true,
-          username: action.payload.username,
-          role: action.payload.role
+          username: action.value.username,
+          role: action.value.role
         }
       case "LOGOUT":
         return {
           ...appState,
           isAuthenticated: false,
           username: null,
-          role: null
+          role: null,
+         }
+      case "LOADING":
+        return {
+          ...appState,
+          isLoading: action.value
         }
-        case "LOADING" :
-          return {
-            ...appState,
-            isLoading : action.value
-          }
+      case "AUTHENTICATED":
+        return {
+          ...appState,
+          isAuthenticated: true
+        }
       default:
         return appState
     }
   }
   const [appState, setAppState] = useReducer(auth, initState)
 
-  
-    return (
 
 
-      <div className="container">
-        <div className='App'>
-          <AuthContext.Provider value={{ appState, setAppState }}>
-            <ErrorHandler>
+   
+  return (
 
-              <BrowserRouter>
-              {appState.isLoading ? <Loading/> : <></>}
+    <div className="container">
+      <div className='App'>
+        <AuthContext.Provider value={{ appState, setAppState }}>
+          <ErrorHandler>
 
-                <Bar />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/link1" element={<Link1 />} />
-                  <Route path="/link2" element={<Link1 />} />
-                  <Route path="/login" element={<LoginPage />} />
+            <BrowserRouter>
+              {appState.isLoading ? <Loading visible={true}/> : <Loading visible={false}/>}
+
+              <Bar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/link1" element={<Link1 />} />
+                <Route path="/link2" element={<Link1 />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route exact path="/admin" element={
+                  <Authentication>
+                    <AdminPage />
+                  </Authentication>
+                } />
 
 
-                  <Route
-                    path="*"
-                    element={
-                      <main style={{ padding: "1rem" }}>
-                        <p>There's nothing here!</p>
-                      </main>
-                    }
-                  />
-                </Routes>
 
-              </BrowserRouter>
-            </ErrorHandler>
+                <Route
+                  path="*"
+                  element={
+                    <main style={{ padding: "1rem" }}>
+                      <p>There's nothing here!</p>
+                    </main>
+                  }
+                />
+              </Routes>
 
-          </AuthContext.Provider>
+            </BrowserRouter>
+          </ErrorHandler>
 
-        </div>
-      </div >
-    );
+        </AuthContext.Provider>
+
+      </div>
+    </div >
+  );
 }
 
 export default App;

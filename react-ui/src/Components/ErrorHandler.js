@@ -1,8 +1,7 @@
 
 import React, { useContext } from 'react'
 import axios from 'axios'
-import Loading from './Loading';
-import AuthContext from './AuthContext';
+ import AuthContext from './AuthContext';
 
 const ErrorHandler = ({ children }) => {
 

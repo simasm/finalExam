@@ -63,7 +63,7 @@ import lombok.RequiredArgsConstructor;
 		//var authenticationManager = authenticationManagerBuilder.build();
 
 	 http.csrf().disable().cors().and().authorizeRequests()
-	 .antMatchers("/", "/swagger-ui/")
+	 .antMatchers("/", "/swagger-ui/","/api/loggedUser")
 				.permitAll()
 				.antMatchers("/api/**", "/h2", "/h2/**").authenticated()
 				.and().formLogin()

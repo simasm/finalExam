@@ -1,10 +1,10 @@
 import React, { useContext } from "react"
-import { useNavigate } from "react-router-dom" 
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
- import { Form, Col, Button, Container, Row } from 'react-bootstrap'
+import { Form, Col, Button, Container, Row } from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
 
-import { createUser, login } from "../Api"
+import { apiCreateUser, apiGetLoggedUser, apiLogin } from "../Api"
 import AuthContext from "../AuthContext"
 
 
@@ -24,22 +24,39 @@ const LoginPage = () => {
             password: null,
         })
     }
-    const { setAppState } = useContext(AuthContext)
+    const { appState, setAppState } = useContext(AuthContext)
     const sumbitHandler = (e) => {
         setAppState({ type: "LOADING", value: true })
-        var a = state.user;
-
-
         e.preventDefault();
-        console.log(state)
-        login({ username: state.username, password: state.password })
-            .then(response => {
-                clearForm()
-                console.log("loggedin")
-                navigate("/home", {replace : true})
-            })
+        if (!appState.isAuthenticated) {
+            console.log(state)
+            apiLogin({ username: state.username, password: state.password })
+                .then(response => {
+                    clearForm()
+                    if (response && response.status === 200) {
+                        console.log("loggedin")
+                        apiGetLoggedUser().then(response => {
+                            let usr = response.data.split("+")
+                            if (usr.length !== 2)
+                                return;
+                            console.log(usr)
+                            setAppState({ type: "LOGIN", value: { username: usr[0], role: usr[1] } })
 
-        clearForm()
+                            console.log(appState)
+                        })
+                        clearForm()
+                        navigate("/home", { replace: true })
+                    }
+                })
+
+        } else {
+            alert("Jau prisijungta");
+            setAppState({ type: "LOADING", value: false })
+           
+
+        }
+      
+
 
     }
 
@@ -80,6 +97,7 @@ const LoginPage = () => {
                                     <Button variant="primary" type="submit" className="mb-3">
                                         Submit
                                     </Button>
+                                    
                                 </Form>
                             </Container>
                         </Card>
