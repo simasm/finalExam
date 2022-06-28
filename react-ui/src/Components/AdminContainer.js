@@ -41,13 +41,10 @@ isbn : state.isbn});
     return (
         <Container>
 
-            <AdminPage sumbitHandler={sumbitHandler}
+            <AdminPage sumbitHandler={sumbitHandler1}
                 onChange={onChange}
                 state={state} />
-            <AdminPage sumbitHandler={sumbitHandler1}
-                onChange={onChange1}
-                state={state1} />
-
+            
         </Container>
     )
 }
