@@ -23,6 +23,10 @@ const getLoggedUser =  async () => {
    return axios.get(endpoint + '/api/loggedUser')
 }
 
+const createBook = (data) => {
+   return axios.post(endpoint + '/api/book/new', data)
+}
+
 const logout = () => {
    
    return axios.post(endpoint + '/logout')
@@ -32,4 +36,5 @@ export { createUser as apiCreateUser,
     deleteUser as apiDeleteUser,
      login as apiLogin,
       getLoggedUser as apiGetLoggedUser,
-      logout as apiLogout }
+      logout as apiLogout,
+     createBook as apiCreateBook }

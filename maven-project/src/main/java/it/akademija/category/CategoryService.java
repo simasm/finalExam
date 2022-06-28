@@ -23,10 +23,10 @@ public class CategoryService {
 	}
 
 	@Transactional
-	public boolean deleteCategoryByName(CategoryDTO dto) {
+	public void deleteCategoryByName(String name) {
 
-		categoryDAO.deleteByName(dto.getName());
-		return true;
+		categoryDAO.deleteByName(name);
+		 
 	}
 
 	public Category findCategoryByName(String name) {

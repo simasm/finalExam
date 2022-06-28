@@ -49,14 +49,14 @@ public class BookService {
 	public List<BookDTO> findByCategory(String name) {
 		var category = categoryService.findCategoryByName(name);
 		if (category != null) {
-		 var books =  bookDAO.findByCategory(category);
+		 var books =  bookDAO.findByCategoryName(category.getName());
 		  List<BookDTO> response = new ArrayList<BookDTO>();
 			for (var b : books) {
 				response.add(entityToDTO(b));
 			}
 			return response;
 		}
-		return null;
+		return new ArrayList<BookDTO>();
 	}
 	
 	public Book findById(Long id) {

@@ -22,7 +22,7 @@ const Bar =  () => {
                     <Navbar.Brand as={Link} to="/">Knygos</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/home">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/link1">Link1</Nav.Link>
+                        {/* <Nav.Link as={Link} to="/link1">Link1</Nav.Link>
                         <Nav.Link as={Link} to="/link1">Link2</Nav.Link>
                         <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                             <NavDropdown.Item as={Link} to="/asd">Action</NavDropdown.Item>
@@ -30,7 +30,7 @@ const Bar =  () => {
                             <NavDropdown.Item as={Link} to="/link2">Something</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="/link2">Separated link</NavDropdown.Item>
-                        </NavDropdown>
+                        </NavDropdown> */}
                         <Nav.Link as={Link} to="/login">login</Nav.Link>
 
                         <Nav.Link as={Link} to="/admin"

@@ -50,8 +50,8 @@ public class CategoryController {
 	@ResponseBody
 	public ResponseEntity<String> deleteCategory(@PathVariable String name) {
 
-		if (bookService.findByCategory(name) == null) {
-			categoryService.deleteCategoryByName(new CategoryDTO(name));
+		if (bookService.findByCategory(name).size() == 0 && categoryService.findCategoryByName(name) != null) {
+			categoryService.deleteCategoryByName(name);
 			return new ResponseEntity<String>("Istrinta", HttpStatus.OK);
 
 		}

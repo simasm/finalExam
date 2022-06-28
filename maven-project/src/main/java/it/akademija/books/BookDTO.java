@@ -6,7 +6,7 @@ import it.akademija.category.Category;
 
 public class BookDTO {
 
-	 
+	@JsonIgnore
 	private Long id;
 	private String name;
 	private String categoryName;

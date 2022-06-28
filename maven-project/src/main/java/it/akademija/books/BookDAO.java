@@ -9,9 +9,9 @@ import it.akademija.category.Category;
 public interface BookDAO extends JpaRepository<Book, Long> {
 
 	List<Book> findAll();
-	boolean deleteBookById(Long id);
+	void deleteBookById(Long id);
 	List<Book> findByName(String name);
 	Book findByIsbn(String isbn);
-	List<Book> findByCategory(Category category);
+	List<Book> findByCategoryName(String name);
 	
 }

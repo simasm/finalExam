@@ -83,5 +83,20 @@ public class BookController {
 
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+	
+	@RequestMapping(value = "/findcategory/{name}", method = RequestMethod.GET)
+	@ApiOperation(value = "Find books by category")
+	@ResponseBody
+	public ResponseEntity<List<BookDTO>> findByCategory(String name) {
+
+		List<BookDTO> response = bookService.findByCategory(name);
+		if (response != null) {
+			return new ResponseEntity<List<BookDTO>>(response, HttpStatus.OK);
+
+		}
+
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
 
 }
