@@ -11,6 +11,7 @@ const BookContainer = () => {
     useEffect( () => {
         apiGetAllBooks().then(response => {
             setState({data : response.data})
+            console.log(response.data)
         })
     },[])
 
