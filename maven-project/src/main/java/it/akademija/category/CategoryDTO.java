@@ -1,10 +1,15 @@
-package category;
+package it.akademija.category;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CategoryDTO {
 
 
+	@JsonIgnore
+	private Long id;
 	private String name;
 	
+	public CategoryDTO() {}
 	
 	public CategoryDTO(String name) {
 		super();
@@ -19,5 +24,14 @@ public class CategoryDTO {
 		this.name = name;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
 	
 }

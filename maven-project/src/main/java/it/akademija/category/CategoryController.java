@@ -1,4 +1,6 @@
-package category;
+package it.akademija.category;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,23 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import it.akademija.books.BookService;
 
 @RestController
-@Api(tags = "Category")
-@RequestMapping(value = "api/category")
+@Api(tags = "category-servisas", description = "category servisas")
+@RequestMapping(value = "/api/category")
 public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
 
+	@Autowired
+	private BookService bookService;
+
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "/category/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	@ApiOperation(value = "Create new category")
 	@ResponseBody
-	public ResponseEntity<String> createNewCategory(@ApiParam @RequestBody CategoryDTO dto) {
+	public ResponseEntity<String> createNewCategory(@ApiParam @RequestBody String name) {
 
-		if (categoryService.findCategoryByName(dto) == null) {
-			categoryService.addCategory(dto);
+		if (categoryService.findCategoryByName(name) == null) {
+			categoryService.addCategory(name);
 			return new ResponseEntity<String>("Kategorija sukurta", HttpStatus.OK);
 		}
 
@@ -39,12 +45,12 @@ public class CategoryController {
 	}
 
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping(value = "/category/delete/{name}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{name}", method = RequestMethod.DELETE)
 	@ApiOperation(value = "Delete category")
 	@ResponseBody
 	public ResponseEntity<String> deleteCategory(@PathVariable String name) {
 
-		if (categoryService.findCategoryByName(new CategoryDTO(name)) != null) {
+		if (bookService.findByCategory(name) == null) {
 			categoryService.deleteCategoryByName(new CategoryDTO(name));
 			return new ResponseEntity<String>("Istrinta", HttpStatus.OK);
 
@@ -53,15 +59,30 @@ public class CategoryController {
 		return new ResponseEntity<String>("Istrinti nepavyko", HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/category/find", method = RequestMethod.GET)
+	@RequestMapping(value = "/find/{name}", method = RequestMethod.GET)
 	@ApiOperation(value = "Find category")
 	@ResponseBody
-	public ResponseEntity<CategoryDTO> findCategory(@ApiParam @RequestBody CategoryDTO dto) {
+	public ResponseEntity<CategoryDTO> findCategory(@PathVariable String name) {
 
-		var categoryDTO = categoryService.findCategoryByName(dto);
-		if (categoryDTO != null) {
+		var categoryDTO = new CategoryDTO(name);
+		var category = categoryService.findCategoryByName(name);
+		if (category != null) {
 
 			return new ResponseEntity<CategoryDTO>(categoryDTO, HttpStatus.OK);
+
+		}
+
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
+	@RequestMapping(value = "/findall", method = RequestMethod.GET)
+	@ApiOperation(value = "Find category")
+	@ResponseBody
+	public ResponseEntity<List<CategoryDTO>> findAllCategories() {
+
+		List<CategoryDTO> response = categoryService.findAllCategories();
+		if (response != null) {
+			return new ResponseEntity<List<CategoryDTO>>(response, HttpStatus.OK);
 
 		}
 

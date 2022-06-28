@@ -1,4 +1,4 @@
-package category;
+package it.akademija.category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 
-@Table(uniqueConstraints= {@UniqueConstraint(columnNames="name")}, name = "categories")
+@Table(uniqueConstraints= {@UniqueConstraint(columnNames="category_name")}, name = "category")
 @Entity
 public class Category {
 	
@@ -21,7 +21,7 @@ public class Category {
 	@Column(name="category_name")
 	private String name;
 
-	
+	public Category () {}
 	
 	public Category(String name) {
 		super();

@@ -1,4 +1,4 @@
-package it.akademija.carts;
+package it.akademija.reservation;
 
 public class GetUserCartCommand {
 	private String username;

@@ -1,4 +1,4 @@
-package it.akademija.carts;
+package it.akademija.reservation;
 
 import java.util.List;
 import java.util.Map;
@@ -18,14 +18,14 @@ import io.swagger.annotations.ApiParam;
 
  
 @RestController
- @Api(tags="cart-servisas", description="cart servisas")
-@RequestMapping(value = "api/carts")
-public class CartController {
+ @Api(tags="reservation-servisas")
+@RequestMapping(value = "api/reservation")
+public class ReservationController {
 
 	private final CartDao cartDao;
 	
 	@Autowired
-	public CartController(CartDao cartDao) {
+	public ReservationController(CartDao cartDao) {
 		this.cartDao = cartDao;
 	}
 	

@@ -1,4 +1,4 @@
-package it.akademija.carts;
+package it.akademija.reservation;
 
 import java.util.List;
 
