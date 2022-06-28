@@ -1,22 +1,25 @@
 import { Button, Card, Container } from "react-bootstrap"
 
-const Books = () => {
+const Books = ({state}) => {
 
 
 
 
     return (<Container>
-        <Card className="mt-5" style={{ width: '18rem' }}>
+        {state.map( book =>  {
+        <Card key = {book.id} className="mt-5" style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title>
-                    knyga
+                    {book.name}
                 </Card.Title>
                 <Card.Text>
-                    knyga1
+                    {book.description}
                 </Card.Text>
                 <Button variant="primary"> click </Button >
             </Card.Body>
         </Card>
+        })
+    }
     </Container>)
 }
 
