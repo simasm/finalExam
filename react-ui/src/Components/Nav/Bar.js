@@ -19,7 +19,7 @@ const Bar =  () => {
         <div>
             <Navbar bg="dark" variant="dark" className="me-5">
                 <Container>
-                    <Navbar.Brand as={Link} to="/">Bar</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/">Knygos</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/home">Home</Nav.Link>
                         <Nav.Link as={Link} to="/link1">Link1</Nav.Link>

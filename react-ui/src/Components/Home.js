@@ -1,7 +1,8 @@
+import BookContainer from "./BookContainer"
 
 const Home = () => {
     return (<div>
-        HOME sasdasd
+         <BookContainer/>
     </div>)
 }
 
