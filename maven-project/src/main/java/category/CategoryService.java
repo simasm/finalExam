@@ -25,9 +25,12 @@ public class CategoryService {
 		return true;
 	}
 
-	public CategoryDTO getCategoryByName(CategoryDTO dto) {
+	public CategoryDTO findCategoryByName(CategoryDTO dto) {
 
-		return new CategoryDTO(categoryDAO.findByName(dto.getName()).getName());
+		var category = categoryDAO.findByName(dto.getName()); 
+		if (category != null)
+			return new CategoryDTO(category.getName());
+		return null;
 	}
 
 }
