@@ -23,6 +23,9 @@ const getLoggedUser =  async () => {
    return axios.get(endpoint + '/api/loggedUser')
 }
 
+const getBooks = () => {
+   return axios.get(endpoint + '/api/book/findall')
+}
 const createBook = (data) => {
    return axios.post(endpoint + '/api/book/new', data)
 }
@@ -37,4 +40,5 @@ export { createUser as apiCreateUser,
      login as apiLogin,
       getLoggedUser as apiGetLoggedUser,
       logout as apiLogout,
-     createBook as apiCreateBook }
+     createBook as apiCreateBook,
+   getBooks as apiGetAllBooks }
