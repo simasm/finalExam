@@ -9,14 +9,12 @@ const ErrorHandler = ({ children }) => {
 
     React.useMemo(() => {
         axios.interceptors.response.use(response => {
-            console.log("res")
-
-
+ 
             setAppState({ type: "LOADING" ,value : false})
             return response
 
         }, async (error) => {
-            console.log("err")
+            console.log("error")
             setAppState({ type: "LOADING" ,value : false})
 
             const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;
@@ -34,7 +32,7 @@ const ErrorHandler = ({ children }) => {
 
         });
 
-    }, [setAppState])
+    }, [])
     return children;
 }
 

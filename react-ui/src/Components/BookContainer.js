@@ -8,11 +8,16 @@ const BookContainer = () => {
 
     const [state, setState] = useState({data : []})
 
-    apiGetAllBooks().then(response => {
-        setState({data : response.data})
-    })
+    useEffect( () => {
+        apiGetAllBooks().then(response => {
+            setState({data : response.data})
+        })
+    },[])
+
+   if(state.data != null)
     return (<Container><Books state={state} /></Container>)
 
+    return (<></>)
 }
 
 export default BookContainer

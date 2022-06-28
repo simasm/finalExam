@@ -6,7 +6,7 @@ const Books = ({state}) => {
 
 
     return (<Container>
-        {state.map( book =>  {
+        {state.data.map( book =>  {
         <Card key = {book.id} className="mt-5" style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title>
